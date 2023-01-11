@@ -1,34 +1,29 @@
-import { useState } from 'react'
-import reactLogo from './assets/react.svg'
-import './App.css'
+import Fab from "@mui/material/Fab";
+import { useState } from "react";
+import ButtonAppBar from "./components/ButtonAppBar";
+import AddIcon from "@mui/icons-material/Add";
+import UsersGrid from "./components/UsersGrid";
+import CssBaseline from "@mui/material/CssBaseline";
 
 function App() {
-  const [count, setCount] = useState(0)
-
   return (
-    <div className="App">
-      <div>
-        <a href="https://vitejs.dev" target="_blank">
-          <img src="/vite.svg" className="logo" alt="Vite logo" />
-        </a>
-        <a href="https://reactjs.org" target="_blank">
-          <img src={reactLogo} className="logo react" alt="React logo" />
-        </a>
-      </div>
-      <h1>Vite + React</h1>
-      <div className="card">
-        <button onClick={() => setCount((count) => count + 1)}>
-          count is {count}
-        </button>
-        <p>
-          Edit <code>src/App.tsx</code> and save to test HMR
-        </p>
-      </div>
-      <p className="read-the-docs">
-        Click on the Vite and React logos to learn more
-      </p>
-    </div>
-  )
+    <>
+      <CssBaseline />
+      <ButtonAppBar />
+      <Fab
+        variant="extended"
+        sx={{
+          position: "absolute",
+          bottom: 16,
+          right: 16,
+        }}
+      >
+        <AddIcon sx={{ mr: 1 }} />
+        Add User
+      </Fab>
+      <UsersGrid />
+    </>
+  );
 }
 
-export default App
+export default App;
