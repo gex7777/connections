@@ -3,26 +3,44 @@ import Card from "@mui/material/Card";
 import CardContent from "@mui/material/CardContent";
 import CardMedia from "@mui/material/CardMedia";
 import Typography from "@mui/material/Typography";
-import { CardActionArea } from "@mui/material";
+import { CardActionArea, CardHeader, Stack } from "@mui/material";
+import { User } from "./UsersGrid";
+import IconButton, { IconButtonProps } from "@mui/material/IconButton";
+import MoreVertIcon from "@mui/icons-material/MoreVert";
 
-export default function UserCard() {
+import Diversity3Icon from "@mui/icons-material/Diversity3";
+import MenuActions from "./CardMenuActions";
+interface Props {
+  user: User;
+}
+
+export default function UserCard({ user }: Props) {
   return (
     <Card sx={{ maxWidth: 345 }}>
+      <CardHeader action={<MenuActions userId={user.id} />} />
       <CardActionArea>
         <CardMedia
           component="img"
           height="140"
-          image="https://images.unsplash.com/photo-1472214103451-9374bd1c798e?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxzZWFyY2h8Mnx8cGljfGVufDB8fDB8fA%3D%3D&w=1000&q=80"
+          image={`https://robohash.org/${user.id}size=300x300`}
           alt="green iguana"
         />
         <CardContent>
-          <Typography gutterBottom variant="h5" component="div">
-            Lizard
-          </Typography>
-          <Typography variant="body2" color="text.secondary">
-            Lizards are a widespread group of squamate reptiles, with over 6,000
-            species, ranging across all continents except Antarctica
-          </Typography>
+          <Stack direction={"row"} justifyContent={"space-between"}>
+            <div>
+              <Typography gutterBottom variant="h5" component="div">
+                {user.name}
+              </Typography>
+              <Typography variant="body2" color="text.secondary">
+                {user.age}
+              </Typography>
+            </div>
+            <div>
+              <Typography gutterBottom variant="h5" component="div">
+                <Diversity3Icon /> {user.friends.length}
+              </Typography>
+            </div>
+          </Stack>
         </CardContent>
       </CardActionArea>
     </Card>
