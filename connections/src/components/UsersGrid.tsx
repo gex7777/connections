@@ -5,29 +5,16 @@ import Paper from "@mui/material/Paper";
 import Grid from "@mui/material/Grid";
 import UserCard from "./UserCard";
 import Container from "@mui/material/Container";
+import { useStore } from "./../state/store";
 export interface User {
   id: string;
   name: string;
   age: number;
+  friends: string[];
 }
-const users: User[] = [
-  {
-    id: "1",
-    name: "mike",
-    age: 44,
-  },
-  {
-    id: "2",
-    name: "charles",
-    age: 84,
-  },
-  {
-    id: "3",
-    name: "mew",
-    age: 4,
-  },
-];
+
 export default function UsersGrid() {
+  const users = useStore((state) => state.users);
   return (
     <Container sx={{ paddingTop: 5 }}>
       <Grid
