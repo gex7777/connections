@@ -7,7 +7,15 @@ import Button from "@mui/material/Button";
 import IconButton from "@mui/material/IconButton";
 import MenuIcon from "@mui/icons-material/Menu";
 import Diversity3Icon from "@mui/icons-material/Diversity3";
+import { useStore } from "./../state/store";
+import { useEffect } from "react";
+
 export default function DefaultAppBar() {
+  const graph = useStore((state) => state.graph);
+  useEffect(() => {
+    console.log(graph);
+  }, [graph]);
+
   return (
     <Box sx={{ flexGrow: 1 }}>
       <AppBar position="static">
