@@ -3,10 +3,8 @@ import Card from "@mui/material/Card";
 import CardContent from "@mui/material/CardContent";
 import CardMedia from "@mui/material/CardMedia";
 import Typography from "@mui/material/Typography";
-import { CardActionArea, CardHeader, Stack } from "@mui/material";
+import { Avatar, CardActionArea, CardHeader, Stack } from "@mui/material";
 import { User } from "./UsersGrid";
-import IconButton, { IconButtonProps } from "@mui/material/IconButton";
-import MoreVertIcon from "@mui/icons-material/MoreVert";
 
 import Diversity3Icon from "@mui/icons-material/Diversity3";
 import MenuActions from "./CardMenuActions";
@@ -31,14 +29,23 @@ export default function UserCard({ user }: Props) {
               <Typography gutterBottom variant="h5" component="div">
                 {user.name}
               </Typography>
-              <Typography variant="body2" color="text.secondary">
-                {user.age}
-              </Typography>
             </div>
             <div>
-              <Typography gutterBottom variant="h5" component="div">
-                <Diversity3Icon /> {user.friends.length}
-              </Typography>
+              <Stack direction={"row-reverse"}>
+                <Diversity3Icon />
+                <Typography gutterBottom variant="h5" component="div">
+                  {user.friends.length}
+                </Typography>
+              </Stack>
+              <Stack direction={"row"}>
+                {user.friends.map((friend) => (
+                  <Avatar
+                    key={friend}
+                    alt="Remy Sharp"
+                    src={`https://robohash.org/${friend}size=300x300`}
+                  />
+                ))}
+              </Stack>
             </div>
           </Stack>
         </CardContent>
