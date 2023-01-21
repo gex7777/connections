@@ -15,10 +15,11 @@ import { FormInputText } from "./FormInputText";
 import { useStore } from "./../state/store";
 import { Stack } from "@mui/material";
 import MultipleSelectChip from "./FormMultiselect";
+import { User } from "./UsersGrid";
 
 export interface FormData {
   name: string;
-  age: number;
+
   friends: string[];
 }
 
@@ -26,9 +27,6 @@ const validationRules = {
   name: {
     required: "Please input a name",
     maxLength: { value: 30, message: "Name must be 30 characters or less" },
-  },
-  age: {
-    required: "please input an age",
   },
 };
 
@@ -47,9 +45,9 @@ export default function PopupForm() {
   const setUserIdToEdit = useStore((state) => state.setUserIdToEdit);
   const editUser = useStore((state) => state.editUser);
   const [open, setOpen] = React.useState(false);
-  const { handleSubmit, control } = useForm<FormData>();
+  const { handleSubmit, control, reset } = useForm<FormData>();
 
-  function getUser(id: string) {
+  function getUser(id: string): User | undefined {
     return users.find((e) => e.id == id);
   }
 
@@ -59,7 +57,13 @@ export default function PopupForm() {
     addUser(userData);
   };
   const onEditSubmit: SubmitHandler<FormData> = (data) => {
-    editUser({ id: userIdToEdit, data: data });
+    console.log(data);
+    if (!!userIdToEdit) {
+      editUser({ id: userIdToEdit, data: data });
+    }
+
+    setUserIdToEdit(null);
+    setShowModal(false);
   };
   const handleClickOpen = () => {
     setShowModal(true);
@@ -73,6 +77,7 @@ export default function PopupForm() {
   if (userIdToEdit) {
     const currentUser = getUser(userIdToEdit);
     console.log(currentUser);
+
     return (
       <div>
         <Dialog open={showModal} onClose={handleClose}>
@@ -89,22 +94,14 @@ export default function PopupForm() {
                 control={control}
                 label="Name"
                 rules={validationRules.name}
-                defaultValue={currentUser.name}
+                defaultValue={currentUser?.name}
               />
-              <FormInputText
-                inputProps={{ margin: "dense", fullWidth: true }}
-                name="age"
-                control={control}
-                label="Age"
-                rules={validationRules.age}
-                defaultValue={currentUser.age}
-              />
+
               <MultipleSelectChip
                 users={users}
                 control={control}
                 title={"Friends"}
-                currentUserId={userIdToEdit}
-                defaultValue={currentUser.friends ? currentUser.friends : []}
+                defaultValue={currentUser?.friends}
               />
               <Stack spacing={2} marginTop={5} direction="row">
                 <Button variant="outlined" onClick={handleClose}>
@@ -134,13 +131,7 @@ export default function PopupForm() {
               label="Name"
               rules={validationRules.name}
             />
-            <FormInputText
-              inputProps={{ margin: "dense", fullWidth: true }}
-              name="age"
-              control={control}
-              label="Age"
-              rules={validationRules.age}
-            />
+
             <MultipleSelectChip
               users={users}
               control={control}
