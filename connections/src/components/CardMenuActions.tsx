@@ -17,13 +17,15 @@ export default function MenuActions({ userId }: Iprops) {
     setAnchorEl(event.currentTarget);
   };
   const handleClose = () => {
-    setUserIdToEdit(userId);
     setAnchorEl(null);
   };
   const handleDelete = () => {
     deleteUser(userId);
   };
-
+  const handleEdit = () => {
+    setUserIdToEdit(userId);
+    setAnchorEl(null);
+  };
   return (
     <div>
       <IconButton
@@ -44,7 +46,7 @@ export default function MenuActions({ userId }: Iprops) {
           "aria-labelledby": "basic-button",
         }}
       >
-        <MenuItem onClick={handleClose}>Edit</MenuItem>
+        <MenuItem onClick={handleEdit}>Edit</MenuItem>
         <MenuItem onClick={handleDelete}>delete</MenuItem>
       </Menu>
     </div>
