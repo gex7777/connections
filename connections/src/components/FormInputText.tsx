@@ -3,7 +3,7 @@ import React from "react";
 import { InputProps, TextField, TextFieldProps } from "@mui/material";
 import { FormData } from "./PopupForm";
 interface Props {
-  name: "name" | "age";
+  name: "name";
   control: Control<FormData>;
   label: string;
   rules: object;
@@ -18,20 +18,25 @@ export const FormInputText = ({
   rules,
   inputProps,
   defaultValue,
-}: UseControllerProps<Props>) => {
+}: Props) => {
   return (
     <Controller
       rules={rules}
       name={name}
       control={control}
       defaultValue={defaultValue}
-      render={({ field: { onChange, value }, fieldState: { error } }) => (
+      render={({
+        field: { onChange, value, onBlur, ref },
+        fieldState: { error },
+      }) => (
         <TextField
           {...inputProps}
           onChange={onChange}
-          value={value}
+          defaultValue={defaultValue}
           label={label}
           error={!!error}
+          onBlur={onBlur} // notify when input is touched/blur
+          inputRef={ref}
           helperText={!!error && error.message}
         />
       )}
