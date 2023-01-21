@@ -10,6 +10,7 @@ import Chip from "@mui/material/Chip";
 import { Control, Controller, UseControllerProps } from "react-hook-form";
 import { FormData } from "./PopupForm";
 import { User } from "./UsersGrid";
+import { useStore } from "./../state/store";
 
 const ITEM_HEIGHT = 48;
 const ITEM_PADDING_TOP = 8;
@@ -40,7 +41,7 @@ interface Iprops {
   control: Control<FormData>;
   rules?: object;
   users: User[];
-  currentUserId?: string;
+  defaultValue?: string[];
 }
 
 export default function MultipleSelectChip({
@@ -48,23 +49,26 @@ export default function MultipleSelectChip({
   control,
   rules,
   users,
-  currentUserId,
+  defaultValue,
 }: Iprops) {
+  const currentUserId = useStore((state) => state.userIdToEdit);
   function getUser(id: string) {
     return users.find((e) => e.id == id);
   }
-  if (currentUserId) {
-    const friends = getUser(currentUserId)?.friends;
+  if (defaultValue) {
+    const friends = defaultValue;
+
     return (
       <Controller
         rules={rules}
         name="friends"
         control={control}
-        render={({ field: { onChange } }) => (
+        defaultValue={friends}
+        render={({ field }) => (
           <FormControl fullWidth margin="dense">
             <InputLabel id="demo-multiple-chip-label">{title}</InputLabel>
             <Select
-              onChange={onChange}
+              {...field}
               labelId="demo-multiple-chip-label"
               id="demo-multiple-chip"
               multiple
@@ -92,17 +96,19 @@ export default function MultipleSelectChip({
       />
     );
   }
+  console.log("not today");
+
   return (
     <Controller
       rules={rules}
       name="friends"
       control={control}
       defaultValue={[]}
-      render={({ field: { onChange } }) => (
+      render={({ field }) => (
         <FormControl fullWidth margin="dense">
           <InputLabel id="demo-multiple-chip-label">{title}</InputLabel>
           <Select
-            onChange={onChange}
+            {...field}
             labelId="demo-multiple-chip-label"
             id="demo-multiple-chip"
             multiple
