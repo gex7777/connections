@@ -42,6 +42,7 @@ interface Iprops {
   rules?: object;
   users: User[];
   defaultValue?: string[];
+  userIdToEdit?: string;
 }
 
 export default function MultipleSelectChip({
@@ -50,13 +51,15 @@ export default function MultipleSelectChip({
   rules,
   users,
   defaultValue,
+  userIdToEdit,
 }: Iprops) {
-  const currentUserId = useStore((state) => state.userIdToEdit);
+  const currentUserId = userIdToEdit;
   function getUser(id: string) {
     return users.find((e) => e.id == id);
   }
   if (defaultValue) {
     const friends = defaultValue;
+    console.log(friends);
 
     return (
       <Controller
@@ -72,7 +75,6 @@ export default function MultipleSelectChip({
               labelId="demo-multiple-chip-label"
               id="demo-multiple-chip"
               multiple
-              defaultValue={friends}
               input={<OutlinedInput id="select-multiple-chip" label={title} />}
               renderValue={(selected) => (
                 <Box sx={{ display: "flex", flexWrap: "wrap", gap: 0.5 }}>
