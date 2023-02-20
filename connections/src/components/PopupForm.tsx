@@ -12,7 +12,7 @@ import { SubmitHandler, useForm } from "react-hook-form";
 import Box from "@mui/material/Box";
 import { FormInputText } from "./FormInputText";
 
-import { useStore } from "./../state/store";
+import { useStore } from "../state/store";
 import { Stack } from "@mui/material";
 import MultipleSelectChip from "./FormMultiselect";
 import { User } from "./UsersGrid";

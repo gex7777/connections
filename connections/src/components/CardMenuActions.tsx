@@ -5,7 +5,7 @@ import MenuItem from "@mui/material/MenuItem";
 import IconButton from "@mui/material/IconButton";
 import MoreVertIcon from "@mui/icons-material/MoreVert";
 import { useStore } from "../state/store";
-import PopupForm from "./PopupForm copy";
+import PopupForm from "./PopupForm";
 interface Iprops {
   userId: string;
 }
