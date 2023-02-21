@@ -15,11 +15,14 @@ import { User } from "./UsersGrid";
 
 import Diversity3Icon from "@mui/icons-material/Diversity3";
 import MenuActions from "./CardMenuActions";
+import { useStore } from "../state/store";
 interface Props {
   user: User;
 }
 
 export default function UserCard({ user }: Props) {
+  const addSelected = useStore((state) => state.addSelected);
+
   return (
     <Card sx={{ maxWidth: 345 }}>
       <CardHeader action={<MenuActions userId={user.id} />} />
@@ -58,7 +61,9 @@ export default function UserCard({ user }: Props) {
       </CardContent>
 
       <CardActions sx={{ justifyContent: "center" }}>
-        <Button size="small">Select</Button>
+        <Button onClick={() => addSelected(user)} size="small">
+          Select
+        </Button>
       </CardActions>
     </Card>
   );
