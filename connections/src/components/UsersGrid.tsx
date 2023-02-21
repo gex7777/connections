@@ -15,7 +15,6 @@ import { GraphUtil } from "graphs-for-js";
 export interface User {
   id: string;
   name: string;
-
   friends: string[];
 }
 
