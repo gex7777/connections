@@ -17,6 +17,8 @@ type State = {
   setUserIdToEdit: (payload: string | null) => void;
   addUser: (payload: User) => void;
   deleteUser: (payload: string) => void;
+  selectedUsers: string[];
+  addSelected: (payload: User) => void;
 };
 function updateUser(
   id: string,
@@ -69,6 +71,11 @@ function addUser(data: User, userArray: User[]): User[] {
 
   return [...userArray, data];
 }
+
+function addSelected(data: User, selectedArray: string[]) {
+  return [...selectedArray, data.id];
+}
+
 function addNode(
   graph: MutableUnweightedGraph<string, never>,
   payload: User
@@ -109,8 +116,13 @@ export const useStore = create<State>()(
     (set) => ({
       graph: new Graph<string>().keyFn((i) => `${i}`).undirected.unweighted(),
       users: [],
+      selectedUsers: [],
       showModal: false,
       userIdToEdit: null,
+      addSelected: (payload: User) =>
+        set((state) => ({
+          selectedUsers: addSelected(payload, state.selectedUsers),
+        })),
       setUserIdToEdit: (payload) =>
         set(() => ({ userIdToEdit: payload, showModal: true })),
       addUser: (payload) =>
