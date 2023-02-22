@@ -36,7 +36,7 @@ function getRandomNumbers() {
   const randomValues = window.crypto.getRandomValues(typedArray);
   return randomValues.join("");
 }
-type PopupTypes = "ADD" | "EDIT";
+type PopupTypes = "ADD" | "EDIT" | "SHOW";
 
 interface Props {
   type: PopupTypes;
@@ -120,6 +120,15 @@ export default function PopupForm({
             </Box>
           </DialogContent>
           <DialogActions></DialogActions>
+        </Dialog>
+      </div>
+    );
+  }
+  if (type === "SHOW") {
+    return (
+      <div>
+        <Dialog open={opener} onClose={handleClose}>
+          <DialogTitle>Degree of seperation</DialogTitle>
         </Dialog>
       </div>
     );
