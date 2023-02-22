@@ -15,7 +15,7 @@ const CompareFab = () => {
         }}
       >
         <CompareArrowsIcon sx={{ mr: 1 }} />
-        Compare
+        Degree of connection
       </Fab>
       {showModal && (
         <PopupForm
