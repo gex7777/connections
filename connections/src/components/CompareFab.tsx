@@ -7,6 +7,7 @@ const CompareFab = () => {
   return (
     <>
       <Fab
+        onClick={() => setShowModal(true)}
         variant="extended"
         sx={{
           position: "fixed",
