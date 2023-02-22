@@ -73,7 +73,15 @@ function addUser(data: User, userArray: User[]): User[] {
 }
 
 function addSelected(data: User, selectedArray: string[]) {
-  return [...selectedArray, data.id];
+  if (selectedArray.includes(data.id)) {
+    console.log(data, selectedArray);
+    console.log("dta inside");
+    let arr = selectedArray.filter((e) => e !== data.id);
+    console.log(arr);
+    return [...arr];
+  }
+  selectedArray.push(data.id);
+  return [...selectedArray];
 }
 
 function addNode(
