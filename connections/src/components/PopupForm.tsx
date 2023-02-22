@@ -135,7 +135,7 @@ export default function PopupForm({
     return (
       <div>
         <Dialog open={opener} onClose={handleClose}>
-          <DialogTitle>Degree of seperation</DialogTitle>
+          <DialogTitle>Degree of seperation {pathSize}</DialogTitle>
           <DialogContent>
             <Box>
               <Stack spacing={2} marginTop={5} direction="row">

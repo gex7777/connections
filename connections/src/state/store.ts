@@ -80,6 +80,9 @@ function addSelected(data: User, selectedArray: string[]) {
     console.log(arr);
     return [...arr];
   }
+  if (selectedArray.length == 2) {
+    return [data.id];
+  }
   selectedArray.push(data.id);
   return [...selectedArray];
 }
