@@ -4,7 +4,7 @@ import Button from "@mui/material/Button";
 import Dialog from "@mui/material/Dialog";
 import DialogActions from "@mui/material/DialogActions";
 import DialogContent from "@mui/material/DialogContent";
-
+import EastIcon from "@mui/icons-material/East";
 import DialogTitle from "@mui/material/DialogTitle";
 import Fab from "@mui/material/Fab";
 import AddIcon from "@mui/icons-material/Add";
@@ -13,10 +13,12 @@ import Box from "@mui/material/Box";
 import { FormInputText } from "./FormInputText";
 
 import { useStore } from "../state/store";
-import { Stack } from "@mui/material";
+import { Avatar, Stack } from "@mui/material";
 import MultipleSelectChip from "./FormMultiselect";
 import { User } from "./UsersGrid";
 import { useEffect } from "react";
+import { GraphUtil } from "graphs-for-js";
+import East from "@mui/icons-material/East";
 
 export interface FormData {
   name: string;
@@ -55,7 +57,7 @@ export default function PopupForm({
   const addUser = useStore((state) => state.addUser);
   const selected = useStore((state) => state.selectedUsers);
   const editUser = useStore((state) => state.editUser);
-
+  const graph = useStore((state) => state.graph);
   const { handleSubmit, control, reset } = useForm<FormData>();
 
   function getUser(id: string): User | undefined {
@@ -125,10 +127,33 @@ export default function PopupForm({
     );
   }
   if (type === "SHOW") {
+    const { path, pathSize } = GraphUtil.findShortestPath(
+      graph,
+      selected[0],
+      selected[1]
+    );
     return (
       <div>
         <Dialog open={opener} onClose={handleClose}>
           <DialogTitle>Degree of seperation</DialogTitle>
+          <DialogContent>
+            <Box>
+              <Stack spacing={2} marginTop={5} direction="row">
+                {path.map((item, i, { length }) => {
+                  return (
+                    <>
+                      <Avatar
+                        key={item}
+                        alt="Remy Sharp"
+                        src={`https://robohash.org/${item}size=300x300`}
+                      />
+                      {i + 1 !== length && <East />}
+                    </>
+                  );
+                })}
+              </Stack>
+            </Box>
+          </DialogContent>
         </Dialog>
       </div>
     );
