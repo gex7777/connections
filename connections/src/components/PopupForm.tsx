@@ -53,7 +53,7 @@ export default function PopupForm({
 }: Props) {
   const users = useStore((state) => state.users);
   const addUser = useStore((state) => state.addUser);
-
+  const selected = useStore((state) => state.selectedUsers);
   const editUser = useStore((state) => state.editUser);
 
   const { handleSubmit, control, reset } = useForm<FormData>();
